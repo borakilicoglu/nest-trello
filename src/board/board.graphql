@@ -1,0 +1,18 @@
+type Board {
+  id: ID
+  created: Date!
+  updated: Date!
+  name: String!
+  author: User!
+}
+
+type Query {
+  boards(page: Int, newest: Boolean): [Board!]!
+  board(id: ID!): Board!
+}
+
+type Mutation {
+  createBoard(name: String!): Board!
+  updateBoard(id: ID!, name: String): Board!
+  deleteBoard(id: ID!): Board!
+}

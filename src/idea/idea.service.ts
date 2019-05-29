@@ -16,7 +16,7 @@ export class IdeaService {
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
     private gateway: AppGateway,
-  ) {}
+  ) { }
 
   private ideaToResponseObject(idea: IdeaEntity): IdeaRO {
     const responseObject: any = {
