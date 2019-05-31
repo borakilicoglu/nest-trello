@@ -19,7 +19,7 @@ export class IdeaResolver {
   constructor(
     private ideaService: IdeaService,
     private commentService: CommentService,
-  ) { }
+  ) {}
 
   @Query()
   async ideas(@Args('page') page: number, @Args('newest') newest: boolean) {
