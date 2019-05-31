@@ -7,9 +7,10 @@ import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
 import { BoardModule } from './board/board.module';
 import { ListModule } from './list/list.module';
+import { CatsModule } from './cats/cats.module';
 
 @Module({
-  imports: [IdeaModule, UserModule, CommentModule, BoardModule, ListModule],
+  imports: [IdeaModule, UserModule, CommentModule, BoardModule, ListModule, CatsModule],
   providers: [
     {
       provide: APP_FILTER,
