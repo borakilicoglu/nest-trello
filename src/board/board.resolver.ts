@@ -33,7 +33,7 @@ export class BoardResolver {
 
   @Mutation()
   @UseGuards(new AuthGuard())
-  async createIdea(
+  async createBoard(
     @Args('id') id: string,
     @Args() { name }: BoardDTO,
     @Context('user') user,
