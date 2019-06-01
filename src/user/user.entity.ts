@@ -87,7 +87,7 @@ export class UserEntity {
         username,
       },
       process.env.SECRET,
-      { expiresIn: '1d' },
+      { expiresIn: '7d' },
     );
   }
 }
