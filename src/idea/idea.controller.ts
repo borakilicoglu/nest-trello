@@ -22,7 +22,7 @@ import { IdeaDTO } from './idea.dto';
 export class IdeaController {
   private logger = new Logger('IdeaController');
 
-  constructor(private ideaService: IdeaService) {}
+  constructor(private ideaService: IdeaService) { }
 
   private logData(options: any) {
     options.user && this.logger.log('USER ' + JSON.stringify(options.user));
