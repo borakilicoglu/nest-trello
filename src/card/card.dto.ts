@@ -1,6 +1,9 @@
 import { IsString } from 'class-validator';
 
-export class CommentDTO {
+export class CardDTO {
   @IsString()
-  comment: string;
+  readonly name: string;
+
+  @IsString()
+  readonly description: string;
 }
