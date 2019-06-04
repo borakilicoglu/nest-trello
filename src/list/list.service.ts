@@ -28,7 +28,7 @@ export class ListService {
   async showByBoard(boardId: string, page: number = 1) {
     const lists = await this.listRepository.find({
       where: { board: { id: boardId } },
-      relations: ['author', 'board'],
+      relations: ['author', 'board', 'cards'],
       take: 25,
       skip: 25 * (page - 1),
     });
