@@ -1,0 +1,24 @@
+type Card {
+  id: ID
+  created: Date!
+  updated: Date!
+  name: String!
+  description: String!
+  list: String!
+  author: User!
+}
+
+type Query {
+  cards(page: Int): [Card!]!
+  card(id: ID!): Card!
+}
+
+type Mutation {
+  createCard(name: String!, description: String!): Card!
+  updateCard(id: ID!, name: String, description: String): Card!
+  deleteCard(id: ID!): Card!
+  # upvote(id: ID!): Idea!
+  # downvote(id: ID!): Idea!
+  # bookmark(id: ID!): User!
+  # unbookmark(id: ID!): User!
+}

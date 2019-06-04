@@ -14,4 +14,4 @@ import { CardEntity } from './card.entity';
   // providers: [ListService, CommentResolver],
   providers: [CardService],
 })
-export class ListModule { }
+export class CardModule { }

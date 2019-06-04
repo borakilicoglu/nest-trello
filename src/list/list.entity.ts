@@ -5,10 +5,12 @@ import {
   Column,
   ManyToOne,
   JoinTable,
+  OneToMany
 } from 'typeorm';
 
 import { BoardEntity } from '../board/board.entity';
 import { UserEntity } from '../user/user.entity';
+import { CardEntity } from '../card/card.entity';
 
 @Entity('board')
 export class ListEntity {
@@ -27,4 +29,7 @@ export class ListEntity {
 
   @ManyToOne(type => BoardEntity, board => board.lists)
   board: BoardEntity;
+
+  @OneToMany(type => CardEntity, card => card.list, { cascade: true })
+  cards: CardEntity[];
 }

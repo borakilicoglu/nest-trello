@@ -2,71 +2,71 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { IdeaEntity } from '../idea/idea.entity';
+import { ListEntity } from '../list/list.entity';
 import { UserEntity } from '../user/user.entity';
 import { CardEntity } from './card.entity';
 import { CardDTO } from './card.dto';
 
 @Injectable()
-export class CommentService {
+export class CardService {
   constructor(
     @InjectRepository(CardEntity)
     private cardRepository: Repository<CardEntity>,
-    @InjectRepository(IdeaEntity)
-    private ideaRepository: Repository<IdeaEntity>,
+    @InjectRepository(ListEntity)
+    private listRepository: Repository<ListEntity>,
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
   ) { }
 
-  private toResponseObject(comment: CommentEntity) {
+  private toResponseObject(card: CardEntity) {
     return {
-      ...comment,
-      author: comment.author && comment.author.toResponseObject(),
+      ...card,
+      author: card.author && card.author.toResponseObject(),
     };
   }
 
-  async showByIdea(ideaId: string, page: number = 1) {
-    const comments = await this.commentRepository.find({
-      where: { idea: { id: ideaId } },
+  async showByList(listId: string, page: number = 1) {
+    const cards = await this.cardRepository.find({
+      where: { idea: { id: listId } },
       relations: ['author', 'idea'],
       take: 25,
       skip: 25 * (page - 1),
     });
-    return comments.map(comment => this.toResponseObject(comment));
+    return cards.map(card => this.toResponseObject(card));
   }
 
   async showByUser(userId: string, page: number = 1) {
-    const comments = await this.commentRepository.find({
+    const cards = await this.cardRepository.find({
       where: { author: { id: userId } },
       relations: ['author', 'idea'],
       take: 25,
       skip: 25 * (page - 1),
     });
-    return comments.map(comment => this.toResponseObject(comment));
+    return cards.map(card => this.toResponseObject(card));
   }
 
   async show(id: string) {
-    const comment = await this.commentRepository.findOne({
+    const card = await this.cardRepository.findOne({
       where: { id },
-      relations: ['author', 'idea'],
+      relations: ['author', 'list'],
     });
-    return this.toResponseObject(comment);
+    return this.toResponseObject(card);
   }
 
-  async create(ideaId: string, userId: string, data: CommentDTO) {
-    const idea = await this.ideaRepository.findOne({ where: { id: ideaId } });
+  async create(listId: string, userId: string, data: CardDTO) {
+    const list = await this.listRepository.findOne({ where: { id: listId } });
     const user = await this.userRepository.findOne({ where: { id: userId } });
-    const comment = await this.commentRepository.create({
+    const card = await this.cardRepository.create({
       ...data,
-      idea,
+      list,
       author: user,
     });
-    await this.commentRepository.save(comment);
-    return this.toResponseObject(comment);
+    await this.cardRepository.save(card);
+    return this.toResponseObject(card);
   }
 
   async destroy(id: string, userId: string) {
-    const comment = await this.commentRepository.findOne({
+    const comment = await this.cardRepository.findOne({
       where: { id },
       relations: ['author', 'idea'],
     });
@@ -78,7 +78,7 @@ export class CommentService {
       );
     }
 
-    await this.commentRepository.remove(comment);
+    await this.cardRepository.remove(comment);
     return this.toResponseObject(comment);
   }
 }

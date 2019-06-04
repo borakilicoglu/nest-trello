@@ -2,83 +2,83 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { IdeaEntity } from '../idea/idea.entity';
-import { UserEntity } from '../user/user.entity';
 import { ListEntity } from './list.entity';
+import { UserEntity } from '../user/user.entity';
+import { BoardEntity } from '../board/board.entity';
 import { ListDTO } from './list.dto';
 
 @Injectable()
 export class ListService {
   constructor(
-    @InjectRepository(CommentEntity)
-    private commentRepository: Repository<CommentEntity>,
-    @InjectRepository(IdeaEntity)
-    private ideaRepository: Repository<IdeaEntity>,
+    @InjectRepository(ListEntity)
+    private listRepository: Repository<ListEntity>,
+    @InjectRepository(BoardEntity)
+    private boardRepository: Repository<BoardEntity>,
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
   ) { }
 
-  private toResponseObject(comment: CommentEntity) {
+  private toResponseObject(list: ListEntity) {
     return {
-      ...comment,
-      author: comment.author && comment.author.toResponseObject(),
+      ...list,
+      author: list.author && list.author.toResponseObject(),
     };
   }
 
-  async showByIdea(ideaId: string, page: number = 1) {
-    const comments = await this.commentRepository.find({
-      where: { idea: { id: ideaId } },
-      relations: ['author', 'idea'],
+  async showByBoard(boardId: string, page: number = 1) {
+    const lists = await this.listRepository.find({
+      where: { idea: { id: boardId } },
+      relations: ['author', 'board'],
       take: 25,
       skip: 25 * (page - 1),
     });
-    return comments.map(comment => this.toResponseObject(comment));
+    return lists.map(list => this.toResponseObject(list));
   }
 
   async showByUser(userId: string, page: number = 1) {
-    const comments = await this.commentRepository.find({
+    const lists = await this.listRepository.find({
       where: { author: { id: userId } },
       relations: ['author', 'idea'],
       take: 25,
       skip: 25 * (page - 1),
     });
-    return comments.map(comment => this.toResponseObject(comment));
+    return lists.map(list => this.toResponseObject(list));
   }
 
   async show(id: string) {
-    const comment = await this.commentRepository.findOne({
+    const list = await this.listRepository.findOne({
       where: { id },
-      relations: ['author', 'idea'],
+      relations: ['author', 'board'],
     });
-    return this.toResponseObject(comment);
+    return this.toResponseObject(list);
   }
 
-  async create(ideaId: string, userId: string, data: CommentDTO) {
-    const idea = await this.ideaRepository.findOne({ where: { id: ideaId } });
+  async create(boardId: string, userId: string, data: ListDTO) {
+    const board = await this.boardRepository.findOne({ where: { id: boardId } });
     const user = await this.userRepository.findOne({ where: { id: userId } });
-    const comment = await this.commentRepository.create({
+    const list = await this.listRepository.create({
       ...data,
-      idea,
+      board,
       author: user,
     });
-    await this.commentRepository.save(comment);
-    return this.toResponseObject(comment);
+    await this.listRepository.save(list);
+    return this.toResponseObject(list);
   }
 
   async destroy(id: string, userId: string) {
-    const comment = await this.commentRepository.findOne({
+    const list = await this.listRepository.findOne({
       where: { id },
       relations: ['author', 'idea'],
     });
 
-    if (comment.author.id !== userId) {
+    if (list.author.id !== userId) {
       throw new HttpException(
         'You do not own this comment',
         HttpStatus.UNAUTHORIZED,
       );
     }
 
-    await this.commentRepository.remove(comment);
-    return this.toResponseObject(comment);
+    await this.listRepository.remove(list);
+    return this.toResponseObject(list);
   }
 }

@@ -10,8 +10,8 @@ import {
 import { UserEntity } from '../user/user.entity';
 import { ListEntity } from '../list/list.entity';
 
-@Entity('comment')
-export class CommentEntity {
+@Entity('card')
+export class CardEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -28,6 +28,6 @@ export class CommentEntity {
   @JoinTable()
   author: UserEntity;
 
-  @ManyToOne(type => IdeaEntity, idea => idea.comments)
-  idea: IdeaEntity;
+  @ManyToOne(type => ListEntity, list => list.cards)
+  list: ListEntity;
 }
