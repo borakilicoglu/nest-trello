@@ -14,7 +14,7 @@ type Query {
 }
 
 type Mutation {
-  createList(board: String!, name: String!): List
+  createList(board: ID!, name: String!): List
   updateList(id: ID!, name: String): List
   deleteList(id: ID!): List
 }

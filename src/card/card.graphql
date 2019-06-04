@@ -2,9 +2,9 @@ type Card {
   id: ID
   created: Date!
   updated: Date!
+  list: List!
   name: String!
   description: String!
-  list: String!
   author: User!
 }
 
@@ -14,7 +14,7 @@ type Query {
 }
 
 type Mutation {
-  createCard(list: String!, name: String!, description: String!): Card
+  createCard(list: ID!, name: String!, description: String!): Card
   updateCard(id: ID!, name: String, description: String): Card!
   deleteCard(id: ID!): Card!
   # upvote(id: ID!): Idea!
