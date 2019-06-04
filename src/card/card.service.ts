@@ -27,8 +27,8 @@ export class CardService {
 
   async showByList(listId: string, page: number = 1) {
     const cards = await this.cardRepository.find({
-      where: { idea: { id: listId } },
-      relations: ['author', 'idea'],
+      where: { list: { id: listId } },
+      relations: ['author', 'list'],
       take: 25,
       skip: 25 * (page - 1),
     });
@@ -38,7 +38,7 @@ export class CardService {
   async showByUser(userId: string, page: number = 1) {
     const cards = await this.cardRepository.find({
       where: { author: { id: userId } },
-      relations: ['author', 'idea'],
+      relations: ['author', 'list'],
       take: 25,
       skip: 25 * (page - 1),
     });
@@ -66,19 +66,19 @@ export class CardService {
   }
 
   async destroy(id: string, userId: string) {
-    const comment = await this.cardRepository.findOne({
+    const card = await this.cardRepository.findOne({
       where: { id },
-      relations: ['author', 'idea'],
+      relations: ['author', 'list'],
     });
 
-    if (comment.author.id !== userId) {
+    if (card.author.id !== userId) {
       throw new HttpException(
-        'You do not own this comment',
+        'You do not own this card',
         HttpStatus.UNAUTHORIZED,
       );
     }
 
-    await this.cardRepository.remove(comment);
-    return this.toResponseObject(comment);
+    await this.cardRepository.remove(card);
+    return this.toResponseObject(card);
   }
 }

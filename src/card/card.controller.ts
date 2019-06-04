@@ -23,7 +23,7 @@ export class CardController {
   constructor(private cardService: CardService) { }
 
   @Get('list/:id')
-  showCommentsByList(@Param('id') list: string, @Query('page') page: number) {
+  showCardsByList(@Param('id') list: string, @Query('page') page: number) {
     return this.cardService.showByList(list, page);
   }
 
@@ -38,19 +38,19 @@ export class CardController {
     return this.cardService.create(list, user, data);
   }
 
-  @Get('user/:id')
-  showCommentsByUser(@Param('id') user: string, @Query('page') page: number) {
-    return this.cardService.showByUser(user, page);
-  }
+  // @Get('list/:id')
+  // showCardsByList(@Param('id') list: string, @Query('page') page: number) {
+  //   return this.cardService.showByList(list, page);
+  // }
 
   @Get(':id')
-  showComment(@Param('id') id: string) {
+  showCard(@Param('id') id: string) {
     return this.cardService.show(id);
   }
 
   @Delete(':id')
   @UseGuards(new AuthGuard())
-  destroyComment(@Param('id') id: string, @User('id') user: string) {
+  destroyCard(@Param('id') id: string, @User('id') user: string) {
     return this.cardService.destroy(id, user);
   }
 }

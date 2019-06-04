@@ -9,12 +9,12 @@ type Card {
 }
 
 type Query {
-  cards(page: Int): [Card!]!
+  cards(page: Int, listId: String): [Card!]
   card(id: ID!): Card!
 }
 
 type Mutation {
-  createCard(name: String!, description: String!): Card!
+  createCard(list: String!, name: String!, description: String!): Card
   updateCard(id: ID!, name: String, description: String): Card!
   deleteCard(id: ID!): Card!
   # upvote(id: ID!): Idea!
