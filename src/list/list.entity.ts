@@ -12,7 +12,7 @@ import { BoardEntity } from '../board/board.entity';
 import { UserEntity } from '../user/user.entity';
 import { CardEntity } from '../card/card.entity';
 
-@Entity('board')
+@Entity('list')
 export class ListEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

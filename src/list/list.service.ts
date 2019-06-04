@@ -27,7 +27,7 @@ export class ListService {
 
   async showByBoard(boardId: string, page: number = 1) {
     const lists = await this.listRepository.find({
-      where: { idea: { id: boardId } },
+      where: { board: { id: boardId } },
       relations: ['author', 'board'],
       take: 25,
       skip: 25 * (page - 1),
@@ -38,7 +38,7 @@ export class ListService {
   async showByUser(userId: string, page: number = 1) {
     const lists = await this.listRepository.find({
       where: { author: { id: userId } },
-      relations: ['author', 'idea'],
+      relations: ['author', 'board'],
       take: 25,
       skip: 25 * (page - 1),
     });
@@ -68,7 +68,7 @@ export class ListService {
   async destroy(id: string, userId: string) {
     const list = await this.listRepository.findOne({
       where: { id },
-      relations: ['author', 'idea'],
+      relations: ['author', 'board'],
     });
 
     if (list.author.id !== userId) {

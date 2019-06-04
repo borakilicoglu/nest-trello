@@ -9,6 +9,11 @@ export class ListResolver {
   constructor(private listService: ListService) { }
 
   @Query()
+  async lists(@Args('boardId') boardId: string, @Args('page') page: number) {
+    return await this.listService.showByBoard(boardId, page);
+  }
+
+  @Query()
   async list(@Args('id') id: string) {
     return await this.listService.show(id);
   }
@@ -17,11 +22,11 @@ export class ListResolver {
   @UseGuards(new AuthGuard())
   async createList(
     @Args('board') boardId: string,
-    @Args('list') list: string,
+    @Args('name') name: string,
     @Context('user') user,
   ) {
     const { id: userId } = user;
-    const data = { list };
+    const data = { name };
     return await this.listService.create(boardId, userId, data);
   }
 

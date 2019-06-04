@@ -27,30 +27,30 @@ export class ListController {
     return this.listService.showByBoard(board, page);
   }
 
-  @Post('idea/:id')
+  @Post('board/:id')
   @UseGuards(new AuthGuard())
   @UsePipes(new ValidationPipe())
-  createComment(
-    @Param('id') idea: string,
+  createList(
+    @Param('id') board: string,
     @User('id') user: string,
-    @Body() data: ListDTO,
+    @Body() data: ListDTO
   ) {
-    return this.listService.create(idea, user, data);
+    return this.listService.create(board, user, data);
   }
 
   @Get('user/:id')
-  showCommentsByUser(@Param('id') user: string, @Query('page') page: number) {
+  showListsByUser(@Param('id') user: string, @Query('page') page: number) {
     return this.listService.showByUser(user, page);
   }
 
   @Get(':id')
-  showComment(@Param('id') id: string) {
+  showList(@Param('id') id: string) {
     return this.listService.show(id);
   }
 
   @Delete(':id')
   @UseGuards(new AuthGuard())
-  destroyComment(@Param('id') id: string, @User('id') user: string) {
+  destroyList(@Param('id') id: string, @User('id') user: string) {
     return this.listService.destroy(id, user);
   }
 }

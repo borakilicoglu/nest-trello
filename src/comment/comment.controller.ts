@@ -20,7 +20,7 @@ import { CommentService } from './comment.service';
 @Controller('api/comments')
 export class CommentController {
   logger = new Logger('CommentController');
-  constructor(private commentService: CommentService) {}
+  constructor(private commentService: CommentService) { }
 
   @Get('idea/:id')
   showCommentsByIdea(@Param('id') idea: string, @Query('page') page: number) {

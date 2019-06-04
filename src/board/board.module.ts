@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UserEntity } from '../user/user.entity';
 import { ListEntity } from '../list/list.entity';
-// import { ListService } from '../list/list.service';
+import { ListService } from '../list/list.service';
 import { BoardController } from './board.controller';
 import { BoardEntity } from './board.entity';
 import { BoardService } from './board.service';
@@ -14,6 +14,6 @@ import { AppGateway } from 'app.gateway';
   imports: [TypeOrmModule.forFeature([BoardEntity, UserEntity, ListEntity])],
   controllers: [BoardController],
   // providers: [IdeaService, IdeaResolver, ListService, AppGateway],
-  providers: [BoardService, BoardResolver, AppGateway],
+  providers: [BoardService, BoardResolver, ListService, AppGateway],
 })
 export class BoardModule { }
