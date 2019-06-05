@@ -1,7 +1,7 @@
 {
-  "name": "nest-trello-api",
+  "name": "nest-trello",
   "version": "0.0.0",
-  "description": "description",
+  "description": "Trello clone api with nest js.",
   "author": "Bora Kilicoglu",
   "license": "MIT",
   "engines": {
