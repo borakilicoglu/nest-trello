@@ -48,7 +48,7 @@ export class ListService {
   async show(id: string) {
     const list = await this.listRepository.findOne({
       where: { id },
-      relations: ['author', 'board'],
+      relations: ['author', 'board', 'cards'],
     });
     return this.toResponseObject(list);
   }
