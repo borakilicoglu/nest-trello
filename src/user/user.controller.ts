@@ -21,6 +21,7 @@ export class UserController {
 
   @Get('api/users')
   showAllUsers(@Query('page') page: number) {
+    console.log("here")
     return this.userService.showAll(page);
   }
 

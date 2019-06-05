@@ -16,7 +16,7 @@ export class CommentService {
     private ideaRepository: Repository<IdeaEntity>,
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
-  ) {}
+  ) { }
 
   private toResponseObject(comment: CommentEntity) {
     return {

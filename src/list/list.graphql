@@ -1,0 +1,20 @@
+type List {
+  id: ID
+  created: Date!
+  updated: Date!
+  board: Board!
+  name: String!
+  author: User!
+  cards: [Card!]
+}
+
+type Query {
+  lists(page: Int, boardId: String): [List!]
+  list(id: ID!): List!
+}
+
+type Mutation {
+  createList(board: ID!, name: String!): List
+  updateList(id: ID!, name: String): List
+  deleteList(id: ID!): List
+}

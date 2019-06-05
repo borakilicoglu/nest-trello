@@ -5,15 +5,13 @@ import {
   Column,
   ManyToOne,
   JoinTable,
-  OneToMany
 } from 'typeorm';
 
-import { BoardEntity } from '../board/board.entity';
 import { UserEntity } from '../user/user.entity';
-import { CardEntity } from '../card/card.entity';
+import { ListEntity } from '../list/list.entity';
 
-@Entity('list')
-export class ListEntity {
+@Entity('card')
+export class CardEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -23,13 +21,13 @@ export class ListEntity {
   @Column('text')
   name: String;
 
+  @Column('text')
+  description: String;
+
   @ManyToOne(type => UserEntity)
   @JoinTable()
   author: UserEntity;
 
-  @ManyToOne(type => BoardEntity, board => board.lists)
-  board: BoardEntity;
-
-  @OneToMany(type => CardEntity, card => card.list, { cascade: true })
-  cards: CardEntity[];
+  @ManyToOne(type => ListEntity, list => list.cards)
+  list: ListEntity;
 }

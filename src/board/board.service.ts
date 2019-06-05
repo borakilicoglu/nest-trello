@@ -33,7 +33,7 @@ export class BoardService {
 
   async showAll(page: number = 1, newest?: boolean): Promise<BoardRO[]> {
     const boards = await this.boardRepository.find({
-      relations: ['author'],
+      relations: ['author', 'lists'],
       take: 25,
       skip: 25 * (page - 1),
       order: newest && { created: 'DESC' },

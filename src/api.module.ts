@@ -6,10 +6,11 @@ import { IdeaModule } from './idea/idea.module';
 import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
 import { BoardModule } from './board/board.module';
+import { CardModule } from './card/card.module';
 import { ListModule } from './list/list.module';
 
 @Module({
-  imports: [IdeaModule, UserModule, CommentModule, BoardModule, ListModule],
+  imports: [IdeaModule, UserModule, CommentModule, BoardModule, ListModule, CardModule],
   providers: [
     {
       provide: APP_FILTER,
@@ -20,7 +21,7 @@ import { ListModule } from './list/list.module';
       useClass: LoggingInterceptor,
     }
   ],
-  exports: [IdeaModule, UserModule, CommentModule, BoardModule, ListModule],
+  exports: [IdeaModule, UserModule, CommentModule, BoardModule, ListModule, CardModule],
   controllers: [],
 })
 export class ApiModule { }
