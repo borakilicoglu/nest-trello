@@ -25,6 +25,12 @@ export class CardService {
     };
   }
 
+  private ensureOwnership(card: CardEntity, userId: string) {
+    if (card.author.id !== userId) {
+      throw new HttpException('Incorrect User', HttpStatus.UNAUTHORIZED);
+    }
+  }
+
   async showByList(listId: string, page: number = 1) {
     const cards = await this.cardRepository.find({
       where: { list: { id: listId } },
@@ -62,6 +68,27 @@ export class CardService {
       author: user,
     });
     await this.cardRepository.save(card);
+    return this.toResponseObject(card);
+  }
+
+  async update(
+    id: string,
+    userId: string,
+    data: Partial<CardDTO>,
+  ): Promise<CardDTO> {
+    let card = await this.cardRepository.findOne({
+      where: { id },
+      relations: ['author', 'list'],
+    });
+    if (!card) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+    this.ensureOwnership(card, userId);
+    await this.cardRepository.update({ id }, data);
+    card = await this.cardRepository.findOne({
+      where: { id },
+      relations: ['author', 'list'],
+    });
     return this.toResponseObject(card);
   }
 

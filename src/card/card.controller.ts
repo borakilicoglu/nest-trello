@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Put,
   Delete,
   UseGuards,
   Param,
@@ -35,8 +36,18 @@ export class CardController {
     @User('id') user: string,
     @Body() data: CardDTO,
   ) {
-    this.logger.log('Getting stuff');
     return this.cardService.create(list, user, data);
+  }
+
+  @Put(':id')
+  @UseGuards(new AuthGuard())
+  @UsePipes(new ValidationPipe())
+  updateCard(
+    @Param('id') id: string,
+    @User('id') user,
+    @Body() data: CardDTO,
+  ) {
+    return this.cardService.update(id, user, data);
   }
 
   // @Get('list/:id')

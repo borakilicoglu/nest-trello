@@ -19,10 +19,10 @@ export class CardEntity {
   created: Date;
 
   @Column('text')
-  name: String;
+  name: string;
 
   @Column('text')
-  description: String;
+  description: string;
 
   @ManyToOne(type => UserEntity)
   @JoinTable()
