@@ -29,11 +29,11 @@ export class UserController {
     return this.userService.read(username);
   }
 
-  @Get('auth/whoami')
-  @UseGuards(new AuthGuard())
-  showMe(@User('username') username: string) {
-    return this.userService.read(username);
-  }
+  // @Get('auth/whoami')
+  // @UseGuards(new AuthGuard())
+  // showMe(@User('username') username: string) {
+  //   return this.userService.read(username);
+  // }
 
   @Post('auth/login')
   @UsePipes(new ValidationPipe())
