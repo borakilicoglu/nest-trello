@@ -46,11 +46,9 @@ export class BoardService {
       where: { id },
       relations: ['author', 'lists'],
     });
-
     if (!board) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
-
     return this.boardToResponseObject(board);
   }
 
@@ -95,7 +93,6 @@ export class BoardService {
     await this.boardRepository.remove(board);
     return this.boardToResponseObject(board);
   }
-
 
   // async bookmark(id: string, userId: string) {
   //   const board = await this.boardRepository.findOne({ where: { id } });

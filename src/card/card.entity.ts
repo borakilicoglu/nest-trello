@@ -19,15 +19,15 @@ export class CardEntity {
   created: Date;
 
   @Column('text')
-  name: string;
+  name: String;
 
-  @Column('text')
-  description: string;
+  @Column('text', { nullable: true })
+  description: String;
 
   @ManyToOne(type => UserEntity)
   @JoinTable()
   author: UserEntity;
 
-  @ManyToOne(type => ListEntity, list => list.cards)
+  @ManyToOne(type => ListEntity, list => list.cards, { onDelete: 'CASCADE' })
   list: ListEntity;
 }

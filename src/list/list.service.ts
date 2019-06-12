@@ -68,12 +68,14 @@ export class ListService {
   async destroy(id: string, userId: string) {
     const list = await this.listRepository.findOne({
       where: { id },
-      relations: ['author', 'board'],
+      relations: ['author'],
     });
-
+    if (!list) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
     if (list.author.id !== userId) {
       throw new HttpException(
-        'You do not own this comment',
+        'You do not own this list',
         HttpStatus.UNAUTHORIZED,
       );
     }

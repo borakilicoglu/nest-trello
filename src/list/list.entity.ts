@@ -27,7 +27,7 @@ export class ListEntity {
   @JoinTable()
   author: UserEntity;
 
-  @ManyToOne(type => BoardEntity, board => board.lists)
+  @ManyToOne(type => BoardEntity, board => board.lists, { onDelete: 'CASCADE' })
   board: BoardEntity;
 
   @OneToMany(type => CardEntity, card => card.list, { cascade: true })
