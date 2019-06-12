@@ -5,7 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApiModule } from './api.module';
 import { AppController } from './app.controller';
 import { AppGateway } from './app.gateway';
-import { DateScalar } from 'shared/date.scalar';
+import { DateScalar } from './shared/date.scalar';
+
 
 @Module({
   imports: [
