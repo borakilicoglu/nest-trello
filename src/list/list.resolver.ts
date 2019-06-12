@@ -2,7 +2,7 @@ import { Resolver, Args, Query, Mutation, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { ListService } from './list.service';
-import { AuthGuard } from 'shared/auth.gaurd';
+import { AuthGuard } from '../shared/auth.gaurd';
 
 @Resolver('List')
 export class ListResolver {
