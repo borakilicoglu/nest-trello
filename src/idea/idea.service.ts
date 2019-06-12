@@ -6,7 +6,7 @@ import { UserEntity } from '../user/user.entity';
 import { Votes } from '../shared/votes.enum';
 import { IdeaEntity } from './idea.entity';
 import { IdeaDTO, IdeaRO } from './idea.dto';
-import { AppGateway } from 'app.gateway';
+import { AppGateway } from '../app.gateway';
 
 @Injectable()
 export class IdeaService {
