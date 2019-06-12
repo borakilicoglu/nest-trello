@@ -8,7 +8,7 @@ import { BoardController } from './board.controller';
 import { BoardEntity } from './board.entity';
 import { BoardService } from './board.service';
 import { BoardResolver } from './board.resolver';
-import { AppGateway } from 'app.gateway';
+import { AppGateway } from '..app.gateway';
 
 @Module({
   imports: [TypeOrmModule.forFeature([BoardEntity, UserEntity, ListEntity])],

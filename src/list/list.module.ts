@@ -9,7 +9,7 @@ import { ListController } from './list.controller';
 import { ListService } from './list.service';
 import { ListEntity } from './list.entity';
 import { ListResolver } from './list.resolver';
-import { AppGateway } from 'app.gateway';
+import { AppGateway } from '../app.gateway';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ListEntity, BoardEntity, CardEntity, UserEntity])],
