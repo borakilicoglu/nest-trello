@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { UserEntity } from '../user/user.entity';
 import { BoardEntity } from './board.entity';
 import { BoardDTO, BoardRO } from './board.dto';
-import { AppGateway } from 'app.gateway';
+import { AppGateway } from '../app.gateway';
 
 @Injectable()
 export class BoardService {
