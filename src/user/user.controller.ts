@@ -15,16 +15,16 @@ import { UserService } from './user.service';
 import { UserDTO } from './user.dto';
 import { User } from './user.decorator';
 
-@Controller()
+@Controller('api')
 export class UserController {
   constructor(private userService: UserService) { }
 
-  @Get('api/users')
+  @Get('users')
   showAllUsers(@Query('page') page: number) {
     return this.userService.showAll(page);
   }
 
-  @Get('api/users/:username')
+  @Get('users/:username')
   showOneUser(@Param('username') username: string) {
     return this.userService.read(username);
   }
