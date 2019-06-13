@@ -12,6 +12,8 @@ import { DateScalar } from './shared/date.scalar';
   imports: [
     TypeOrmModule.forRoot(),
     GraphQLModule.forRoot({
+      debug: true,
+      playground: true,
       typePaths: ['./**/*.graphql'],
       context: ({ req }) => ({ headers: req.headers }),
     }),
