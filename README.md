@@ -47,7 +47,7 @@ Set mysql database settings in ormconfig.json
       "synchronize": true
     }
 
-Start local mysql server and create new database 'nestjsrealworld'
+Start local mysql server and create new database 'nest-trello'
 
 On application start, tables for all entities will be created.
 
