@@ -28,7 +28,7 @@ Copy config file and set JsonWebToken secret key
 
 The example codebase uses [Typeorm](http://typeorm.io/) with a mySQL database.
 
-Create a new mysql database with the name `nestjsrealworld` (or the name you specified in the ormconfig.json)
+Create a new mysql database with the name `nest-trello` (or the name you specified in the ormconfig.json)
 
 Copy Typeorm config example file for database settings
 
