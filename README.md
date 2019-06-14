@@ -16,7 +16,7 @@ Switch to the repo folder
 
 Install dependencies
 
-npm install
+    npm install
 
 Copy config file and set JsonWebToken secret key
 
