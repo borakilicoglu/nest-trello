@@ -4,7 +4,7 @@
 
 Clone the repository
 
-    git clone git@github.com:lujakob/nestjs-realworld-example-app.git
+    git clone https://github.com/borakilicoglu/nest-trello.git
 
 Switch to the repo folder
 
