@@ -20,7 +20,7 @@ Install dependencies
 
 Copy config file and set JsonWebToken secret key
 
-    cp src/config.ts.example src/config.ts
+    cp src/.env.example src/.env
 
 ---
 
