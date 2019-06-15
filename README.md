@@ -18,7 +18,7 @@ Install dependencies
 
     npm install
 
-Copy config file and set JsonWebToken secret key
+Copy config file and set JWT secret key
 
     cp src/.env.example src/.env
 
