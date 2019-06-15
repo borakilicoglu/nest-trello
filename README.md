@@ -26,28 +26,9 @@ Copy config file and set JsonWebToken secret key
 
 ## Database
 
-The example codebase uses [Typeorm](http://typeorm.io/) with a mySQL database.
+The example codebase uses [Typeorm](http://typeorm.io/) with a PostgreSQL database.
 
-Create a new mysql database with the name `nest-trello` (or the name you specified in the ormconfig.json)
-
-Copy Typeorm config example file for database settings
-
-    cp ormconfig.json.example ``
-
-Set mysql database settings in ormconfig.json
-
-    {
-      "type": "mysql",
-      "host": "localhost",
-      "port": 3306,
-      "username": "your-mysql-username",
-      "password": "your-mysql-password",
-      "database": "nest-trello",
-      "entities": ["src/**/**.entity{.ts,.js}"],
-      "synchronize": true
-    }
-
-Start local mysql server and create new database 'nest-trello'
+Create a new PostgreSQL database with the name `nest-trello` (or the name you specified in the .env)
 
 On application start, tables for all entities will be created.
 
