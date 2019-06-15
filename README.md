@@ -37,7 +37,7 @@ On application start, tables for all entities will be created.
 ## NPM scripts
 
 - `npm start` - Start application
-- `npm run start:watch` - Start application in watch mode
+- `npm run start:dev` - Start application in watch mode
 - `npm run test` - run Jest test runner
 - `npm run start:prod` - Build application
 
