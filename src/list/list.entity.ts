@@ -21,7 +21,7 @@ export class ListEntity {
   created: Date;
 
   @Column('text')
-  name: String;
+  name: string;
 
   @ManyToOne(type => UserEntity)
   @JoinTable()

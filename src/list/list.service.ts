@@ -25,6 +25,12 @@ export class ListService {
     };
   }
 
+  private ensureOwnership(list: ListEntity, userId: string) {
+    if (list.author.id !== userId) {
+      throw new HttpException('Incorrect User', HttpStatus.UNAUTHORIZED);
+    }
+  }
+
   async showByBoard(boardId: string, page: number = 1) {
     const lists = await this.listRepository.find({
       where: { board: { id: boardId } },
@@ -62,6 +68,27 @@ export class ListService {
       author: user,
     });
     await this.listRepository.save(list);
+    return this.toResponseObject(list);
+  }
+
+  async update(
+    id: string,
+    userId: string,
+    data: Partial<ListDTO>,
+  ): Promise<ListDTO> {
+    let list = await this.listRepository.findOne({
+      where: { id },
+      relations: ['author', 'board'],
+    });
+    if (!list) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+    this.ensureOwnership(list, userId);
+    await this.listRepository.update({ id }, data);
+    list = await this.listRepository.findOne({
+      where: { id },
+      relations: ['author', 'board'],
+    });
     return this.toResponseObject(list);
   }
 

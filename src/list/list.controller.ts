@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Put,
   Delete,
   UseGuards,
   Param,
@@ -46,6 +47,17 @@ export class ListController {
   @Get(':id')
   showList(@Param('id') id: string) {
     return this.listService.show(id);
+  }
+
+  @Put(':id')
+  @UseGuards(new AuthGuard())
+  @UsePipes(new ValidationPipe())
+  updateCard(
+    @Param('id') id: string,
+    @User('id') user,
+    @Body() data: ListDTO,
+  ) {
+    return this.listService.update(id, user, data);
   }
 
   @Delete(':id')
