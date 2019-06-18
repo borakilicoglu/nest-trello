@@ -21,7 +21,7 @@
     "postinstall": "npm run prestart:prod"
   },
   "dependencies": {
-    "@nestjs/common": "^6.3.1",
+    "@nestjs/common": "^5.3.11",
     "@nestjs/core": "^5.3.11",
     "@nestjs/graphql": "^5.4.0",
     "@nestjs/typeorm": "^5.2.2",
