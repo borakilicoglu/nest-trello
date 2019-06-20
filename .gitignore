@@ -117,5 +117,5 @@ typings/
 .notes
 
 # Prevent some files...
-/src/idea
-/src/comment
+src/idea
+src/comment
