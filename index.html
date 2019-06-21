@@ -14,13 +14,13 @@
       const socket = io('http://localhost:4001');
 
       socket.on('connection', data => console.log(data));
-      socket.on('newIdea', data => {
+      socket.on('newBoard', data => {
         console.log(data);
         document.getElementById('app').innerHTML += `
           <li>
             <div>
-              <h2>${data.idea}</h2>
-              <p>${data.description}</p>
+              <h2>${data.name}</h2>
+              <p>${data}</p>
             </div>
           </li>
         `;

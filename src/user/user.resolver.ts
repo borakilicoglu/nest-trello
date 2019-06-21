@@ -19,8 +19,8 @@ export class UserResolver {
   constructor(
     private userService: UserService,
     private commentService: CommentService,
-  ) {}
-
+  ) { }
+  x
   @Query()
   async users(@Args('page') page: number) {
     return await this.userService.showAll(page);

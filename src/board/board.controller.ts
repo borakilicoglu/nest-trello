@@ -87,17 +87,17 @@ export class BoardController {
   //   return this.boardService.downvote(id, user);
   // }
 
-  // @Post(':id/bookmark')
-  // @UseGuards(new AuthGuard())
-  // bookmarkBoard(@Param('id') id: string, @User('id') user: string) {
-  //   this.logData({ id, user });
-  //   return this.boardService.bookmark(id, user);
-  // }
+  @Post(':id/star')
+  @UseGuards(new AuthGuard())
+  addStar(@Param('id') id: string, @User('id') user: string) {
+    this.logData({ id, user });
+    return this.boardService.addStar(id, user);
+  }
 
-  // @Delete(':id/bookmark')
-  // @UseGuards(new AuthGuard())
-  // unbookmarkBoard(@Param('id') id: string, @User('id') user: string) {
-  //   this.logData({ id, user });
-  //   return this.boardService.unbookmark(id, user);
-  // }
+  @Delete(':id/star')
+  @UseGuards(new AuthGuard())
+  removeStar(@Param('id') id: string, @User('id') user: string) {
+    this.logData({ id, user });
+    return this.boardService.removeStar(id, user);
+  }
 }

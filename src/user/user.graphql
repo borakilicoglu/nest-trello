@@ -2,8 +2,8 @@ type User {
   id: ID!
   username: String!
   created: Date!
-  ideas: [Idea!]!
-  bookmarks: [Idea!]!
+  boards: [Board!]!
+  stars: [Board!]!
   comments: [Comment!]
 }
 

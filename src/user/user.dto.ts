@@ -1,6 +1,4 @@
 import { IsNotEmpty } from 'class-validator';
-
-import { IdeaEntity } from '../idea/idea.entity';
 import { BoardEntity } from '../board/board.entity';
 
 export class UserDTO {
@@ -16,7 +14,6 @@ export class UserRO {
   username: string;
   created: Date;
   token?: string;
-  ideas?: IdeaEntity[];
   boards?: BoardEntity[];
-  bookmarks?: IdeaEntity[];
+  stars?: BoardEntity[];
 }

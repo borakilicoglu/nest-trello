@@ -11,7 +11,6 @@ import {
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
-import { IdeaEntity } from '../idea/idea.entity';
 import { BoardEntity } from '../board/board.entity';
 import { UserRO } from './user.dto';
 
@@ -32,15 +31,12 @@ export class UserEntity {
   @Column('text')
   password: string;
 
-  @OneToMany(type => IdeaEntity, idea => idea.author, { cascade: true })
-  ideas: IdeaEntity[];
-
   @OneToMany(type => BoardEntity, board => board.author, { cascade: true })
   boards: BoardEntity[];
 
-  @ManyToMany(type => IdeaEntity, { cascade: true })
+  @ManyToMany(type => BoardEntity, { cascade: true })
   @JoinTable()
-  bookmarks: IdeaEntity[];
+  stars: BoardEntity[];
 
   @BeforeInsert()
   async hashPassword() {
@@ -59,16 +55,12 @@ export class UserEntity {
       username,
     };
 
-    if (this.ideas) {
-      responseObject.ideas = this.ideas;
-    }
-
     if (this.boards) {
       responseObject.boards = this.boards;
     }
 
-    if (this.bookmarks) {
-      responseObject.bookmarks = this.bookmarks;
+    if (this.stars) {
+      responseObject.stars = this.stars;
     }
 
     if (showToken) {

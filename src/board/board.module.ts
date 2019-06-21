@@ -13,7 +13,6 @@ import { AppGateway } from '../app.gateway';
 @Module({
   imports: [TypeOrmModule.forFeature([BoardEntity, UserEntity, ListEntity])],
   controllers: [BoardController],
-  // providers: [IdeaService, IdeaResolver, ListService, AppGateway],
   providers: [BoardService, BoardResolver, ListService, AppGateway],
 })
 export class BoardModule { }

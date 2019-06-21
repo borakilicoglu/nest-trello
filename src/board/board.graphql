@@ -16,4 +16,6 @@ type Mutation {
   createBoard(name: String!): Board!
   updateBoard(id: ID!, name: String): Board!
   deleteBoard(id: ID!): Board!
+  addStar(id: ID!): User!
+  removeStar(id: ID!): User!
 }

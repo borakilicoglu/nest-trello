@@ -1,0 +1,84 @@
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+
+import { CardEntity } from '../card/card.entity';
+import { UserEntity } from '../user/user.entity';
+import { CommentEntity } from './comment.entity';
+import { CommentDTO } from './comment.dto';
+
+@Injectable()
+export class CommentService {
+  constructor(
+    @InjectRepository(CommentEntity)
+    private commentRepository: Repository<CommentEntity>,
+    @InjectRepository(CardEntity)
+    private cardRepository: Repository<CardEntity>,
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
+  ) { }
+
+  private toResponseObject(comment: CommentEntity) {
+    return {
+      ...comment,
+      author: comment.author && comment.author.toResponseObject(),
+    };
+  }
+
+  async showByCard(cardId: string, page: number = 1) {
+    const comments = await this.commentRepository.find({
+      where: { card: { id: cardId } },
+      relations: ['author', 'card'],
+      take: 25,
+      skip: 25 * (page - 1),
+    });
+    return comments.map(comment => this.toResponseObject(comment));
+  }
+
+  async showByUser(userId: string, page: number = 1) {
+    const comments = await this.commentRepository.find({
+      where: { author: { id: userId } },
+      relations: ['author', 'card'],
+      take: 25,
+      skip: 25 * (page - 1),
+    });
+    return comments.map(comment => this.toResponseObject(comment));
+  }
+
+  async show(id: string) {
+    const comment = await this.commentRepository.findOne({
+      where: { id },
+      relations: ['author', 'card'],
+    });
+    return this.toResponseObject(comment);
+  }
+
+  async create(cardId: string, userId: string, data: CommentDTO) {
+    const card = await this.cardRepository.findOne({ where: { id: cardId } });
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    const comment = await this.commentRepository.create({
+      ...data,
+      card,
+      author: user,
+    });
+    await this.commentRepository.save(comment);
+    return this.toResponseObject(comment);
+  }
+
+  async destroy(id: string, userId: string) {
+    const comment = await this.commentRepository.findOne({
+      where: { id },
+      relations: ['author', 'card'],
+    });
+
+    if (comment.author.id !== userId) {
+      throw new HttpException(
+        'You do not own this comment',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    await this.commentRepository.remove(comment);
+    return this.toResponseObject(comment);
+  }
+}

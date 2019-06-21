@@ -115,7 +115,3 @@ typings/
 
 # End of https://www.gitignore.io/api/node,macos,visualstudiocode
 .notes
-
-# Prevent some files...
-src/idea
-src/comment

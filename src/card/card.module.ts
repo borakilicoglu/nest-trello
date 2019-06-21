@@ -11,7 +11,6 @@ import { CardResolver } from './card.resolver';
 @Module({
   imports: [TypeOrmModule.forFeature([CardEntity, ListEntity, UserEntity])],
   controllers: [CardController],
-  // providers: [ListService, CommentResolver],
   providers: [CardService, CardResolver],
 })
 export class CardModule { }

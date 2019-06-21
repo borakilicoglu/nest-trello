@@ -94,42 +94,42 @@ export class BoardService {
     return this.boardToResponseObject(board);
   }
 
-  // async bookmark(id: string, userId: string) {
-  //   const board = await this.boardRepository.findOne({ where: { id } });
-  //   const user = await this.userRepository.findOne({
-  //     where: { id: userId },
-  //     relations: ['bookmarks'],
-  //   });
+  async addStar(id: string, userId: string) {
+    const board = await this.boardRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['stars'],
+    });
 
-  //   if (user.bookmarks.filter(bookmark => bookmark.id === board.id).length < 1) {
-  //     user.bookmarks.push(board);
-  //     await this.userRepository.save(user);
-  //   } else {
-  //     throw new HttpException(
-  //       'Board already bookmarked ',
-  //       HttpStatus.BAD_REQUEST,
-  //     );
-  //   }
+    if (user.stars.filter(star => star.id === board.id).length < 1) {
+      user.stars.push(board);
+      await this.userRepository.save(user);
+    } else {
+      throw new HttpException(
+        'Board already stared ',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
 
-  //   return user.toResponseObject(false);
-  // }
+    return user.toResponseObject(false);
+  }
 
-  // async unbookmark(id: string, userId: string) {
-  //   const board = await this.boardRepository.findOne({ where: { id } });
-  //   const user = await this.userRepository.findOne({
-  //     where: { id: userId },
-  //     relations: ['bookmarks'],
-  //   });
+  async removeStar(id: string, userId: string) {
+    const board = await this.boardRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['stars'],
+    });
 
-  //   if (user.bookmarks.filter(bookmark => bookmark.id === board.id).length > 0) {
-  //     user.bookmarks = user.bookmarks.filter(
-  //       bookmark => bookmark.id !== board.id,
-  //     );
-  //     await this.userRepository.save(user);
-  //   } else {
-  //     throw new HttpException('Cannot remove bookmark', HttpStatus.BAD_REQUEST);
-  //   }
+    if (user.stars.filter(star => star.id === board.id).length > 0) {
+      user.stars = user.stars.filter(
+        star => star.id !== board.id,
+      );
+      await this.userRepository.save(user);
+    } else {
+      throw new HttpException('Cannot remove star', HttpStatus.BAD_REQUEST);
+    }
 
-  //   return user.toResponseObject(false);
-  // }
+    return user.toResponseObject(false);
+  }
 }

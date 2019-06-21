@@ -10,11 +10,11 @@ export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
-  ) {}
+  ) { }
 
   async showAll(page: number = 1) {
     const users = await this.userRepository.find({
-      relations: ['ideas', 'bookmarks'],
+      relations: ['boards', 'stars'],
       take: 25,
       skip: 25 * (page - 1),
     });
@@ -24,7 +24,7 @@ export class UserService {
   async read(username: string) {
     const user = await this.userRepository.findOne({
       where: { username },
-      relations: ['ideas', 'bookmarks'],
+      relations: ['boards', 'stars'],
     });
     return user.toResponseObject(false);
   }

@@ -5,10 +5,12 @@ import {
   Column,
   ManyToOne,
   JoinTable,
+  OneToMany
 } from 'typeorm';
 
 import { UserEntity } from '../user/user.entity';
 import { ListEntity } from '../list/list.entity';
+import { CommentEntity } from '../comment/comment.entity';
 
 @Entity('card')
 export class CardEntity {
@@ -30,4 +32,7 @@ export class CardEntity {
 
   @ManyToOne(type => ListEntity, list => list.cards, { onDelete: 'CASCADE' })
   list: ListEntity;
+
+  @OneToMany(type => CommentEntity, comment => comment.card, { cascade: true })
+  comments: CommentEntity[];
 }

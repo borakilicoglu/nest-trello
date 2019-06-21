@@ -77,19 +77,19 @@ export class BoardResolver {
   //   return await this.boardService.downvote(id, userId);
   // }
 
-  // @Mutation()
-  // @UseGuards(new AuthGuard())
-  // async bookmark(@Args('id') id: string, @Context('user') user) {
-  //   const { id: userId } = user;
-  //   return await this.boardService.bookmark(id, userId);
-  // }
+  @Mutation()
+  @UseGuards(new AuthGuard())
+  async addStar(@Args('id') id: string, @Context('user') user) {
+    const { id: userId } = user;
+    return await this.boardService.addStar(id, userId);
+  }
 
-  // @Mutation()
-  // @UseGuards(new AuthGuard())
-  // async unbookmark(@Args('id') id: string, @Context('user') user) {
-  //   const { id: userId } = user;
-  //   return await this.boardService.unbookmark(id, userId);
-  // }
+  @Mutation()
+  @UseGuards(new AuthGuard())
+  async removeStar(@Args('id') id: string, @Context('user') user) {
+    const { id: userId } = user;
+    return await this.boardService.removeStar(id, userId);
+  }
 
   // @ResolveProperty()
   // async lists(@Parent() board) {

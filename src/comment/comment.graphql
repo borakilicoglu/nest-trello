@@ -1,0 +1,16 @@
+type Comment {
+  id: ID
+  created: String!
+  comment: String!
+  author: User!
+  list: List!
+}
+
+type Query {
+  comment(id: ID!): Comment
+}
+
+type Mutation {
+  createComment(card: ID!, comment: String!): Comment
+  deleteComment(id: ID!): Comment
+}
