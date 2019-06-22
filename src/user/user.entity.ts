@@ -34,7 +34,7 @@ export class UserEntity {
   @OneToMany(type => BoardEntity, board => board.author, { cascade: true })
   boards: BoardEntity[];
 
-  @ManyToMany(type => BoardEntity, { cascade: true })
+  @ManyToMany(type => BoardEntity, board => board.stars)
   @JoinTable()
   stars: BoardEntity[];
 
@@ -52,7 +52,7 @@ export class UserEntity {
     const responseObject: UserRO = {
       id,
       created,
-      username,
+      username
     };
 
     if (this.boards) {

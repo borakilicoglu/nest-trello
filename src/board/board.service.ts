@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -9,6 +9,7 @@ import { AppGateway } from '../app.gateway';
 
 @Injectable()
 export class BoardService {
+  private logger = new Logger('BoardService');
   constructor(
     @InjectRepository(BoardEntity)
     private boardRepository: Repository<BoardEntity>,
@@ -18,9 +19,12 @@ export class BoardService {
   ) { }
 
   private boardToResponseObject(board: BoardEntity): BoardRO {
+    const { id } = board.author
     const responseObject: any = {
       ...board,
-      // author: board.author ? board.author.toResponseObject(false) : null,
+      author: board.author ? board.author.toResponseObject(false) : null,
+      stars: board.stars ? board.stars.map(star => star.id) : null,
+      star: board.stars ? board.stars.map(star => star.id).includes(id) : null
     };
     return responseObject;
   }
@@ -33,7 +37,7 @@ export class BoardService {
 
   async showAll(page: number = 1, newest?: boolean): Promise<BoardRO[]> {
     const boards = await this.boardRepository.find({
-      relations: ['author', 'lists'],
+      relations: ['author', 'lists', 'stars'],
       take: 25,
       skip: 25 * (page - 1),
       order: newest && { created: 'DESC' },
@@ -44,7 +48,7 @@ export class BoardService {
   async read(id: string): Promise<BoardRO> {
     const board = await this.boardRepository.findOne({
       where: { id },
-      relations: ['author', 'lists'],
+      relations: ['author', 'lists', 'stars'],
     });
     if (!board) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
@@ -111,7 +115,8 @@ export class BoardService {
       );
     }
 
-    return user.toResponseObject(false);
+    // return user.toResponseObject(false);
+    return true
   }
 
   async removeStar(id: string, userId: string) {
@@ -122,14 +127,13 @@ export class BoardService {
     });
 
     if (user.stars.filter(star => star.id === board.id).length > 0) {
-      user.stars = user.stars.filter(
-        star => star.id !== board.id,
-      );
+      user.stars = user.stars.filter(star => star.id !== board.id);
       await this.userRepository.save(user);
     } else {
       throw new HttpException('Cannot remove star', HttpStatus.BAD_REQUEST);
     }
 
-    return user.toResponseObject(false);
+    // return user.toResponseObject(false);
+    return false
   }
 }

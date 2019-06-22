@@ -4,6 +4,7 @@ import {
   CreateDateColumn,
   Column,
   ManyToOne,
+  ManyToMany,
   OneToMany,
   JoinTable,
 } from 'typeorm';
@@ -25,6 +26,9 @@ export class BoardEntity {
   @ManyToOne(type => UserEntity, author => author.boards)
   @JoinTable()
   author: UserEntity;
+
+  @ManyToMany(type => UserEntity, author => author.stars)
+  stars: UserEntity[];
 
   @OneToMany(type => ListEntity, list => list.board, { cascade: true })
   lists: ListEntity[];
