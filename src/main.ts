@@ -15,6 +15,7 @@ async function bootstrap() {
       'http://localhost:3000', // react
       'http://localhost:8081', // react-native
     ],
+    credentials: true
   });
   await app.listen(port);
   Logger.log(`Server running on http://localhost:${port}`, 'Bootstrap');
