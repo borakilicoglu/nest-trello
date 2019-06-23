@@ -6,6 +6,7 @@ import {
   Body,
   Query,
   Param,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 
@@ -27,6 +28,15 @@ export class UserController {
   @Get('users/:username')
   showOneUser(@Param('username') username: string) {
     return this.userService.read(username);
+  }
+
+  @Put('users/:id')
+  @UseGuards(new AuthGuard())
+  editUser(
+    @Param('id') id: string,
+    @Body() data: UserDTO,
+  ) {
+    return this.userService.edit(id, data);
   }
 
   @Get('auth/whoami')

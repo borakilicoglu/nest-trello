@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 
 import { UserEntity } from './user.entity';
 import { UserDTO } from './user.dto';
+import { UserRO } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -27,6 +28,20 @@ export class UserService {
       relations: ['boards', 'stars'],
     });
     return user.toResponseObject(false);
+  }
+
+  async edit(
+    id: string,
+    data: Partial<UserDTO>,
+  ): Promise<UserRO> {
+    let user = await this.userRepository.findOne({
+      where: { id },
+    });
+    if (!user) {
+      throw new HttpException('Not found', HttpStatus.NOT_FOUND);
+    }
+    await this.userRepository.update({ id }, data);
+    return user.toResponseObject();
   }
 
   async login(data: UserDTO) {
