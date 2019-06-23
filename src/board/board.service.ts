@@ -94,7 +94,7 @@ export class BoardService {
     if (!board) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
-    this.ensureOwnership(board, userId);
+    // this.ensureOwnership(board, userId);
     await this.boardRepository.remove(board);
     return this.boardToResponseObject(board);
   }
