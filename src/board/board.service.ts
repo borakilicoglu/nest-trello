@@ -33,6 +33,7 @@ export class BoardService {
     // if (board.author.id !== userId) {
     //   throw new HttpException('Incorrect User', HttpStatus.UNAUTHORIZED);
     // }
+    return true
   }
 
   async showAll(page: number = 1, newest?: boolean): Promise<BoardRO[]> {
