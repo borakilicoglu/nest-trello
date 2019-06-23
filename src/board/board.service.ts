@@ -30,10 +30,9 @@ export class BoardService {
   }
 
   private ensureOwnership(board: BoardEntity, userId: string) {
-    // if (board.author.id !== userId) {
-    //   throw new HttpException('Incorrect User', HttpStatus.UNAUTHORIZED);
-    // }
-    return true
+    if (board.author.id !== userId) {
+      throw new HttpException('Incorrect User', HttpStatus.UNAUTHORIZED);
+    }
   }
 
   async showAll(page: number = 1, newest?: boolean): Promise<BoardRO[]> {
