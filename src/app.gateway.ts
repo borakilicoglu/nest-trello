@@ -9,7 +9,7 @@ import {
 @WebSocketGateway(8080, { transport: ['websocket'] })
 export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
-  wss;
+  wss: any;
 
   private logger = new Logger('AppGateway');
 
