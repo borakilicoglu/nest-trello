@@ -18,7 +18,7 @@ import { DateScalar } from './shared/date.scalar';
       typePaths: ['./**/*.graphql'],
       context: ({ req }) => ({ headers: req.headers }),
     }),
-    ApiModule,
+    ApiModule
   ],
   controllers: [AppController],
   providers: [DateScalar, AppGateway],

@@ -6,10 +6,10 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 
-@WebSocketGateway({ transport: ['polling', 'websocket'] })
+@WebSocketGateway(process.env.PORT == "3000" ? 4001 : null, { transport: ['polling', 'websocket'] })
 export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
-  wss;
+  wss: any;
 
   private logger = new Logger('AppGateway');
 
