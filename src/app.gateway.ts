@@ -10,7 +10,7 @@ import {
 @WebSocketGateway(4001, { transport: ['websocket'] })
 export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
-  https
+  http
 
   private logger = new Logger('AppGateway');
 
