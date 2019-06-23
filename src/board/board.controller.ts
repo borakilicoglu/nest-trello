@@ -67,7 +67,7 @@ export class BoardController {
   }
 
   @Delete(':id')
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   destroyBoard(@Param('id') id: string, @User('id') user) {
     this.logData({ id, user });
     return this.boardService.destroy(id, user);
