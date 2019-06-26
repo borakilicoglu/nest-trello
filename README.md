@@ -1,6 +1,6 @@
 # nest-trello
 
-:pizza:Trello api with nest js.
+:pizza:Trello api with NestJS.
 
 ---
 

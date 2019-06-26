@@ -14,6 +14,7 @@ export class UserRO {
   username: string;
   created: Date;
   token?: string;
+  password?: string;
   boards?: BoardEntity[];
   stars?: BoardEntity[];
 }

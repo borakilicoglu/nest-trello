@@ -48,11 +48,12 @@ export class UserEntity {
   }
 
   toResponseObject(showToken: boolean = true): UserRO {
-    const { id, created, username, token } = this;
+    const { id, created, username, token, password } = this;
     const responseObject: UserRO = {
       id,
       created,
-      username
+      username,
+      password
     };
 
     if (this.boards) {
