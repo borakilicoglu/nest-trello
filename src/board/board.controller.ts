@@ -28,7 +28,7 @@ export class BoardController {
   private logData(options: any) {
     options.user && this.logger.log('USER ' + JSON.stringify(options.user));
     options.body && this.logger.log('BODY ' + JSON.stringify(options.body));
-    options.id && this.logger.log('BOARD' + JSON.stringify(options.id));
+    // options.id && this.logger.log('BOARD' + JSON.stringify(options.id));
   }
 
   @Get()
