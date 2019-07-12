@@ -31,7 +31,6 @@ export class BoardController {
   }
 
   @Get()
-  @UseGuards(new AuthGuard())
   showAllIBoards(@Query('page') page: number, @User('id') user) {
     return this.boardService.showAll(page, user);
   }
