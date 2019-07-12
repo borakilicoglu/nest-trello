@@ -18,8 +18,8 @@ export class BoardService {
     private gateway: AppGateway,
   ) { }
 
-  private boardToResponseObject(board: BoardEntity): BoardRO {
-    const { id } = board.author
+  private boardToResponseObject(board: BoardEntity, user?: UserEntity): BoardRO {
+    const { id } = user
     const responseObject: any = {
       ...board,
       author: board.author ? board.author.toResponseObject(false) : null,
@@ -35,14 +35,14 @@ export class BoardService {
     }
   }
 
-  async showAll(page: number = 1, newest?: boolean): Promise<BoardRO[]> {
+  async showAll(page: number = 1, user: UserEntity, newest?: boolean): Promise<BoardRO[]> {
     const boards = await this.boardRepository.find({
       relations: ['author', 'lists', 'stars'],
       take: 25,
       skip: 25 * (page - 1),
       order: newest && { created: 'DESC' },
     });
-    return boards.map(board => this.boardToResponseObject(board));
+    return boards.map(board => this.boardToResponseObject(board, user));
   }
 
   async read(id: string): Promise<BoardRO> {

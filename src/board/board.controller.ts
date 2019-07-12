@@ -17,6 +17,7 @@ import { ValidationPipe } from '../shared/validation.pipe';
 import { AuthGuard } from '../shared/auth.gaurd';
 import { BoardService } from './board.service';
 import { BoardDTO } from './board.dto';
+import { UserDTO } from '../user/user.dto';
 
 @Controller('api/boards')
 export class BoardController {
@@ -31,13 +32,15 @@ export class BoardController {
   }
 
   @Get()
-  showAllIBoards(@Query('page') page: number) {
-    return this.boardService.showAll(page);
+  @UseGuards(new AuthGuard())
+  showAllIBoards(@Query('page') page: number, @User('id') user) {
+    return this.boardService.showAll(page, user);
   }
 
   @Get('/newest')
-  showNewestBoards(@Query('page') page: number) {
-    return this.boardService.showAll(page, true);
+  @UseGuards(new AuthGuard())
+  showNewestBoards(@Query('page') page: number, @User('id') user) {
+    return this.boardService.showAll(page, user, true);
   }
 
   @Post()
