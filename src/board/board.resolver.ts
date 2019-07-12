@@ -22,8 +22,9 @@ export class BoardResolver {
   ) { }
 
   @Query()
-  async boards(@Args('page') page: number, @Args('newest') newest: boolean) {
-    return await this.boardService.showAll(page, newest);
+  @UseGuards(new AuthGuard())
+  async boards(@Args('page') page: number, @Context('user') user, @Args('newest') newest: boolean) {
+    return await this.boardService.showAll(page, user, newest);
   }
 
   @Query()
