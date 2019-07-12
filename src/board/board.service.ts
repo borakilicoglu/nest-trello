@@ -105,12 +105,12 @@ export class BoardService {
       relations: ['stars'],
     });
 
-    if (user.stars.filter(star => star.id === board.id).length < 1) {
+    if (user.stars.filter(star => star.id !== board.id)) {
       user.stars.push(board);
       await this.userRepository.save(user);
     } else {
       throw new HttpException(
-        'Board already stared ',
+        'Board already stared',
         HttpStatus.BAD_REQUEST,
       );
     }
