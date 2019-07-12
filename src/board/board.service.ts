@@ -18,13 +18,12 @@ export class BoardService {
     private gateway: AppGateway,
   ) { }
 
-  private boardToResponseObject(board: BoardEntity, user?: UserEntity): BoardRO {
-    const { id } = user
+  private boardToResponseObject(board: BoardEntity, userId?: string): BoardRO {
     const responseObject: any = {
       ...board,
       author: board.author ? board.author.toResponseObject(false) : null,
       stars: board.stars ? board.stars.map(star => star.id) : null,
-      star: board.stars ? board.stars.map(star => star.id).includes(id) : null
+      star: board.stars ? board.stars.map(star => star.id).includes(userId) : null
     };
     return responseObject;
   }
@@ -35,14 +34,14 @@ export class BoardService {
     }
   }
 
-  async showAll(page: number = 1, user: UserEntity, newest?: boolean): Promise<BoardRO[]> {
+  async showAll(page: number = 1, userId: string, newest?: boolean): Promise<BoardRO[]> {
     const boards = await this.boardRepository.find({
       relations: ['author', 'lists', 'stars'],
       take: 25,
       skip: 25 * (page - 1),
       order: newest && { created: 'DESC' },
     });
-    return boards.map(board => this.boardToResponseObject(board, user));
+    return boards.map(board => this.boardToResponseObject(board, userId));
   }
 
   async read(id: string): Promise<BoardRO> {

@@ -17,7 +17,6 @@ import { ValidationPipe } from '../shared/validation.pipe';
 import { AuthGuard } from '../shared/auth.gaurd';
 import { BoardService } from './board.service';
 import { BoardDTO } from './board.dto';
-import { UserDTO } from '../user/user.dto';
 
 @Controller('api/boards')
 export class BoardController {
@@ -28,7 +27,7 @@ export class BoardController {
   private logData(options: any) {
     options.user && this.logger.log('USER ' + JSON.stringify(options.user));
     options.body && this.logger.log('BODY ' + JSON.stringify(options.body));
-    // options.id && this.logger.log('BOARD' + JSON.stringify(options.id));
+    options.id && this.logger.log('BOARD' + JSON.stringify(options.id));
   }
 
   @Get()
