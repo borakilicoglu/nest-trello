@@ -2,7 +2,7 @@ import { Resolver, Args, Query, Mutation, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { CommentService } from './comment.service';
-import { AuthGuard } from '../shared/auth.gaurd';
+import { AuthGuard } from '../shared/auth.guard';
 
 @Resolver('Comment')
 export class CommentResolver {

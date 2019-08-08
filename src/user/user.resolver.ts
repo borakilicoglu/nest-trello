@@ -9,7 +9,7 @@ import {
 } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
-import { AuthGuard } from '../shared/auth.gaurd';
+import { AuthGuard } from '../shared/auth.guard';
 import { CommentService } from '../comment/comment.service';
 import { UserService } from './user.service';
 import { UserDTO } from './user.dto';
@@ -20,7 +20,6 @@ export class UserResolver {
     private userService: UserService,
     private commentService: CommentService,
   ) { }
-  x
   @Query()
   async users(@Args('page') page: number) {
     return await this.userService.showAll(page);
@@ -41,18 +40,20 @@ export class UserResolver {
   @Mutation()
   async login(
     @Args('username') username: string,
-    @Args('password') password: string,
+    @Args('email') email: string,
+    @Args('password') password: string
   ) {
-    const user: UserDTO = { username, password };
+    const user: UserDTO = { username, email, password };
     return await this.userService.login(user);
   }
 
   @Mutation()
   async register(
     @Args('username') username: string,
-    @Args('password') password: string,
+    @Args('email') email: string,
+    @Args('password') password: string
   ) {
-    const user: UserDTO = { username, password };
+    const user: UserDTO = { username, email, password };
     return await this.userService.register(user);
   }
 

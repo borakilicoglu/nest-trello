@@ -2,7 +2,7 @@ import { Resolver, Args, Query, Mutation, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { CardService } from './card.service';
-import { AuthGuard } from '../shared/auth.gaurd';
+import { AuthGuard } from '../shared/auth.guard';
 
 @Resolver('Card')
 export class CardResolver {

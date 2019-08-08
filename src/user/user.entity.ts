@@ -26,10 +26,19 @@ export class UserEntity {
     type: 'text',
     unique: true,
   })
+  email: string;
+
+  @Column({
+    type: 'text',
+    unique: true,
+  })
   username: string;
 
   @Column('text')
   password: string;
+
+  @Column({ type: 'text', default: 'guest' })
+  role: string;
 
   @OneToMany(type => BoardEntity, board => board.author, { cascade: true })
   boards: BoardEntity[];
@@ -48,11 +57,13 @@ export class UserEntity {
   }
 
   toResponseObject(showToken: boolean = true): UserRO {
-    const { id, created, username, token, password } = this;
+    const { id, created, username, token, password, role, email } = this;
     const responseObject: UserRO = {
       id,
+      email,
       created,
       username,
+      role,
       password
     };
 

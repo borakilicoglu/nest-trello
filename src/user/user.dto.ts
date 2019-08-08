@@ -6,12 +6,17 @@ export class UserDTO {
   username: string;
 
   @IsNotEmpty()
+  email: string;
+
+  @IsNotEmpty()
   password: string;
 }
 
 export class UserRO {
   id: string;
   username: string;
+  email?: string;
+  role: string;
   created: Date;
   token?: string;
   password?: string;

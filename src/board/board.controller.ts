@@ -14,7 +14,8 @@ import {
 
 import { User } from '../user/user.decorator';
 import { ValidationPipe } from '../shared/validation.pipe';
-import { AuthGuard } from '../shared/auth.gaurd';
+import { AuthGuard } from '../shared/auth.guard';
+import { RolesGuard } from '../shared/roles.guard';
 import { BoardService } from './board.service';
 import { BoardDTO } from './board.dto';
 
@@ -70,6 +71,7 @@ export class BoardController {
 
   @Delete(':id')
   @UseGuards(new AuthGuard())
+  // @UseGuards(new RolesGuard())
   destroyBoard(@Param('id') id: string, @User('id') user) {
     this.logData({ id, user });
     return this.boardService.destroy(id, user);

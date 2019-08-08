@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 
 import { User } from '../user/user.decorator';
-import { AuthGuard } from '../shared/auth.gaurd';
+import { AuthGuard } from '../shared/auth.guard';
 import { ValidationPipe } from '../shared/validation.pipe';
 import { CommentDTO } from './comment.dto';
 import { CommentService } from './comment.service';

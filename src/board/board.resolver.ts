@@ -10,7 +10,7 @@ import {
 import { UseGuards } from '@nestjs/common';
 
 import { ListService } from '../list/list.service';
-import { AuthGuard } from '../shared/auth.gaurd';
+import { AuthGuard } from '../shared/auth.guard';
 import { BoardService } from './board.service';
 import { BoardDTO } from './board.dto';
 
