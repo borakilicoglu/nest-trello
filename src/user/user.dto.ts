@@ -5,7 +5,7 @@ export class UserDTO {
   @IsNotEmpty()
   username: string;
 
-  @IsNotEmpty()
+  // @IsNotEmpty()
   email: string;
 
   @IsNotEmpty()
