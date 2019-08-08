@@ -24,6 +24,7 @@
     "@nestjs/common": "^5.3.11",
     "@nestjs/core": "^5.3.11",
     "@nestjs/graphql": "^5.4.0",
+    "@nestjs/swagger": "^3.1.0",
     "@nestjs/typeorm": "^5.2.2",
     "@nestjs/websockets": "^5.3.11",
     "apollo-server-express": "^2.1.0",
@@ -36,6 +37,7 @@
     "pg": "^7.5.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.2.2",
+    "swagger-ui-express": "^4.0.7",
     "typeorm": "^0.2.7",
     "typescript": "^3.0.1"
   },
