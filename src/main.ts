@@ -11,6 +11,8 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'https://borakilicoglu.github.io',
+      'https://borakilicoglu.github.io/angular-trello',
+      'https://borakilicoglu.github.io/angular-trello/boards',
       'http://localhost:4200', // angular
       'http://localhost:3000', // react
       'http://localhost:8081', // react-native
