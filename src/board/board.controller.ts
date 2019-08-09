@@ -52,9 +52,10 @@ export class BoardController {
   }
 
   @Get(':id')
-  readBoard(@Param('id') id: string) {
+  @UseGuards(new AuthGuard())
+  readBoard(@Param('id') id: string, @User('id') user) {
     this.logData({ id });
-    return this.boardService.read(id);
+    return this.boardService.read(id, user);
   }
 
   @Put(':id')

@@ -44,7 +44,7 @@ export class BoardService {
     return boards.map(board => this.boardToResponseObject(board, userId));
   }
 
-  async read(id: string): Promise<BoardRO> {
+  async read(id: string, userId: string): Promise<BoardRO> {
     const board = await this.boardRepository.findOne({
       where: { id },
       relations: ['author', 'lists', 'stars'],
@@ -52,7 +52,7 @@ export class BoardService {
     if (!board) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
-    return this.boardToResponseObject(board);
+    return this.boardToResponseObject(board, userId);
   }
 
   async create(userId: string, data: BoardDTO): Promise<BoardRO> {
@@ -98,41 +98,50 @@ export class BoardService {
   }
 
   async addStar(id: string, userId: string) {
-    const board = await this.boardRepository.findOne({ where: { id } });
+    const board = await this.boardRepository.findOne({
+      where: { id },
+      relations: ['author', 'stars'],
+    });
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['stars'],
     });
 
-    if (user.stars.filter(star => star.id !== board.id)) {
-      user.stars.push(board);
-      await this.userRepository.save(user);
+    if (board.stars.filter(star => star.id !== user.id)) {
+      board.stars.push(user);
+      await this.boardRepository.save(board);
+      return this.boardToResponseObject(board, userId);
     } else {
       throw new HttpException(
         'Board already stared',
         HttpStatus.BAD_REQUEST,
       );
     }
-
     // return user.toResponseObject(false);
-    return true
+    // return true
   }
 
   async removeStar(id: string, userId: string) {
-    const board = await this.boardRepository.findOne({ where: { id } });
+    const board = await this.boardRepository.findOne({
+      where: { id },
+      relations: ['author', 'stars'],
+    });
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['stars'],
     });
 
-    if (user.stars.filter(star => star.id === board.id).length > 0) {
-      user.stars = user.stars.filter(star => star.id !== board.id);
-      await this.userRepository.save(user);
+    if (board.stars.filter(star => star.id === user.id).length > 0) {
+      board.stars = board.stars.filter(star => star.id !== user.id);
+      await this.boardRepository.save(board);
+      return this.boardToResponseObject(board, userId);
     } else {
-      throw new HttpException('Cannot remove star', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Cannot remove star',
+        HttpStatus.BAD_REQUEST
+      );
     }
-
     // return user.toResponseObject(false);
-    return false
+    // return false
   }
 }
