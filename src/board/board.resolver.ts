@@ -28,8 +28,9 @@ export class BoardResolver {
   }
 
   @Query()
-  async board(@Args('id') id: string) {
-    return await this.boardService.read(id);
+  @UseGuards(new AuthGuard())
+  async board(@Args('id') id: string, @Context('user') user) {
+    return await this.boardService.read(id, user);
   }
 
   @Mutation()
