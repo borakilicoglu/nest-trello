@@ -9,7 +9,6 @@ import { AppGateway } from '../app.gateway';
 
 @Injectable()
 export class BoardService {
-  private logger = new Logger('BoardService');
   constructor(
     @InjectRepository(BoardEntity)
     private boardRepository: Repository<BoardEntity>,

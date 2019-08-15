@@ -56,4 +56,14 @@ export class UserController {
   register(@Body() data: UserDTO) {
     return this.userService.register(data);
   }
+
+  @Get('auth/forgot/:email')
+  forgot(@Param('email') email: string) {
+    return this.userService.forgot(email);
+  }
+
+  @Put('auth/reset/:id')
+  reset(@Param('id') id: string, @Body() data: UserDTO) {
+    return this.userService.reset(id, data);
+  }
 }
