@@ -2,8 +2,6 @@ import { IsNotEmpty } from 'class-validator';
 import { BoardEntity } from '../board/board.entity';
 
 export class UserDTO {
-  id: string;
-
   @IsNotEmpty()
   username: string;
 

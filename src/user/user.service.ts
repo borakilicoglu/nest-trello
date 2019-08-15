@@ -101,7 +101,7 @@ export class UserService {
     this.mail(user.toResponseObject(false));
   }
 
-  async reset(id: string, data: Partial<UserDTO>) {
+  async reset(id: string, data: any) {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new HttpException(
@@ -124,7 +124,6 @@ export class UserService {
   async diff_hours(date: any): Promise<number> {
     let diff = (date - Date.now()) / 1000;
     diff /= (60 * 60);
-    this.logger.log(Math.round(diff));
     return Math.abs(Math.round(diff));
   }
 }
