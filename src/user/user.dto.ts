@@ -10,6 +10,8 @@ export class UserDTO {
 
   @IsNotEmpty()
   password: string;
+
+  passwordNew?: string;
 }
 
 export class UserRO {

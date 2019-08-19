@@ -41,7 +41,7 @@ export class UserResolver {
   async login(
     @Args('username') username: string,
     @Args('email') email: string,
-    @Args('password') password: string
+    @Args('password') password: string,
   ) {
     const user: UserDTO = { username, email, password };
     return await this.userService.login(user);
@@ -51,7 +51,7 @@ export class UserResolver {
   async register(
     @Args('username') username: string,
     @Args('email') email: string,
-    @Args('password') password: string
+    @Args('password') password: string,
   ) {
     const user: UserDTO = { username, email, password };
     return await this.userService.register(user);

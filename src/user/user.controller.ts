@@ -62,8 +62,13 @@ export class UserController {
     return this.userService.forgot(email);
   }
 
-  @Put('auth/reset/:id')
+  @Put('auth/updatepassword/:id')
+  updatepassword(@Param('id') id: string, @Body() data: UserDTO) {
+    return this.userService.updatePassword(id, data);
+  }
+
+  @Put('auth/resetpassword/:id')
   reset(@Param('id') id: string, @Body() data: UserDTO) {
-    return this.userService.reset(id, data);
+    return this.userService.resetPassword(id, data);
   }
 }

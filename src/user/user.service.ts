@@ -63,6 +63,15 @@ export class UserService {
     if (!user) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
+    let { email, username } = data
+    let a = await this.userRepository.findOne({ where: { email } });
+    if (a && a.id !== id) {
+      throw new HttpException('This email address is already in use', HttpStatus.NOT_FOUND);
+    }
+    let b = await this.userRepository.findOne({ where: { username } });
+    if (b && b.id !== id) {
+      throw new HttpException('This username is already in use', HttpStatus.NOT_FOUND);
+    }
     await this.userRepository.update({ id }, data);
     return user.toResponseObject();
   }
@@ -101,7 +110,21 @@ export class UserService {
     this.mail(user.toResponseObject(false));
   }
 
-  async reset(id: string, data: any) {
+  async updatePassword(id: string, data: UserDTO) {
+    const { password, passwordNew } = data;
+    this.logger.log(data);
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user || !(await user.comparePassword(password))) {
+      throw new HttpException(
+        'Invalid password',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    let newPassword = await bcrypt.hash(passwordNew, 10);
+    await this.userRepository.update({ id }, { password: newPassword });
+  }
+
+  async resetPassword(id: string, data: any) {
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new HttpException(
