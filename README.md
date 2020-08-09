@@ -4,7 +4,9 @@
 
 ---
 
-# Getting started
+![image](https://nestjs.com/img/nest-og.png)
+
+## Getting started
 
 ## Installation
 
