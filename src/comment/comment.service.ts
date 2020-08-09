@@ -1,7 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 import { CardEntity } from '../card/card.entity';
 import { UserEntity } from '../user/user.entity';
 import { CommentEntity } from './comment.entity';

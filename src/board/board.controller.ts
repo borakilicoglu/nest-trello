@@ -11,11 +11,9 @@ import {
   UseGuards,
   Query,
 } from '@nestjs/common';
-
 import { User } from '../user/user.decorator';
 import { ValidationPipe } from '../shared/validation.pipe';
 import { AuthGuard } from '../shared/auth.guard';
-import { RolesGuard } from '../shared/roles.guard';
 import { BoardService } from './board.service';
 import { BoardDTO } from './board.dto';
 

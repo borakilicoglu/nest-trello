@@ -3,39 +3,44 @@ import { MailerService } from '@nest-modules/mailer';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-
+import { ConfigService } from '@nestjs/config';
 import { UserEntity } from './user.entity';
 import { UserDTO } from './user.dto';
 import { UserRO } from './user.dto';
 
 @Injectable()
 export class UserService {
-  private logger = new Logger('UserService')
+  private logger = new Logger('UserService');
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
     private readonly mailerService: MailerService,
-  ) { }
+    private configService: ConfigService,
+  ) {}
 
   public mail(user: any) {
     const date = Date.now();
-    const link = `http://localhost:4200/auth/reset/${user.id}` + `-` + date;
-    this
-      .mailerService
+    const link =
+      `${this.configService.get('FRONTEND_BASE_URL')}/auth/reset/${user.id}` +
+      `-` +
+      date;
+    this.mailerService
       .sendMail({
         to: user.email, // sender address
         from: '"Angular Trello" <noreply@angulartrello.com>', // list of receivers
         subject: 'Reset your password ✔', // Subject line
-        text: 'Someone (hopefully you) has requested a password reset for your Heroku account. Follow the link below to set a new password:', // plaintext body
+        text:
+          'Someone (hopefully you) has requested a password reset for your Heroku account. Follow the link below to set a new password:', // plaintext body
         template: 'reset',
-        context: {  // Data to be sent to template engine.
+        context: {
+          // Data to be sent to template engine.
           username: user.username,
           email: user.email,
-          link: link
+          link: link,
         },
       })
-      .then(() => { })
-      .catch(() => { });
+      .then(() => {})
+      .catch(() => {});
   }
 
   async showAll(page: number = 1) {
@@ -55,22 +60,25 @@ export class UserService {
     return user.toResponseObject(false);
   }
 
-  async edit(
-    id: string,
-    data: Partial<UserDTO>,
-  ): Promise<UserRO> {
+  async edit(id: string, data: Partial<UserDTO>): Promise<UserRO> {
     let user = await this.userRepository.findOne({ where: { id } });
     if (!user) {
       throw new HttpException('Not found', HttpStatus.NOT_FOUND);
     }
-    let { email, username } = data
+    let { email, username } = data;
     let a = await this.userRepository.findOne({ where: { email } });
     if (a && a.id !== id) {
-      throw new HttpException('This email address is already in use', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'This email address is already in use',
+        HttpStatus.NOT_FOUND,
+      );
     }
     let b = await this.userRepository.findOne({ where: { username } });
     if (b && b.id !== id) {
-      throw new HttpException('This username is already in use', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        'This username is already in use',
+        HttpStatus.NOT_FOUND,
+      );
     }
     await this.userRepository.update({ id }, data);
     return user.toResponseObject();
@@ -115,10 +123,7 @@ export class UserService {
     this.logger.log(data);
     const user = await this.userRepository.findOne({ where: { id } });
     if (!user || !(await user.comparePassword(password))) {
-      throw new HttpException(
-        'Invalid password',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('Invalid password', HttpStatus.BAD_REQUEST);
     }
     let newPassword = await bcrypt.hash(passwordNew, 10);
     await this.userRepository.update({ id }, { password: newPassword });
@@ -132,12 +137,11 @@ export class UserService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const diff = await this.diff_hours(data.id.substr(data.id.lastIndexOf('-') + 1))
+    const diff = await this.diff_hours(
+      data.id.substr(data.id.lastIndexOf('-') + 1),
+    );
     if (diff > 2) {
-      throw new HttpException(
-        'Invalid Token',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new HttpException('Invalid Token', HttpStatus.BAD_REQUEST);
     }
     let password = await bcrypt.hash(data.password, 10);
     await this.userRepository.update({ id }, { password: password });
@@ -146,7 +150,7 @@ export class UserService {
 
   async diff_hours(date: any): Promise<number> {
     let diff = (date - Date.now()) / 1000;
-    diff /= (60 * 60);
+    diff /= 60 * 60;
     return Math.abs(Math.round(diff));
   }
 }
