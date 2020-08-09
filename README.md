@@ -1,6 +1,6 @@
 # nest-trello
 
-![image](https://nestjs.com/img/nest-og.png)
+![image](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fmax%2F3840%2F1*LsHTe083IpvKL5anH7b_NA.png&f=1&nofb=1)
 
 ## Installation
 
