@@ -1,29 +1,20 @@
-import {
-  Resolver,
-  Query,
-  Args,
-  ResolveProperty,
-  Parent,
-  Mutation,
-  Context,
-} from '@nestjs/graphql';
+import { Resolver, Query, Args, Mutation, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
-
-import { ListService } from '../list/list.service';
 import { AuthGuard } from '../shared/auth.guard';
 import { BoardService } from './board.service';
 import { BoardDTO } from './board.dto';
 
 @Resolver('Board')
 export class BoardResolver {
-  constructor(
-    private boardService: BoardService,
-    // private listService: ListService,
-  ) { }
+  constructor(private boardService: BoardService) {}
 
   @Query()
   @UseGuards(new AuthGuard())
-  async boards(@Args('page') page: number, @Context('user') user, @Args('newest') newest: boolean) {
+  async boards(
+    @Args('page') page: number,
+    @Context('user') user,
+    @Args('newest') newest: boolean,
+  ) {
     return await this.boardService.showAll(page, user, newest);
   }
 
@@ -92,10 +83,4 @@ export class BoardResolver {
     const { id: userId } = user;
     return await this.boardService.removeStar(id, userId);
   }
-
-  // @ResolveProperty()
-  // async lists(@Parent() board) {
-  //   const { id } = board;
-  //   return await this.listService.showByBoard(id);
-  // }
 }

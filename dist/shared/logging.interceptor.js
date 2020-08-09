@@ -17,13 +17,17 @@ let LoggingInterceptor = class LoggingInterceptor {
         if (req) {
             const method = req.method;
             const url = req.url;
-            return call$.pipe(operators_1.tap(() => common_1.Logger.log(`${method} ${url} ${Date.now() - now}ms`, context.getClass().name)));
+            return call$
+                .handle()
+                .pipe(operators_1.tap(() => common_1.Logger.log(`${method} ${url} ${Date.now() - now}ms`, context.getClass().name)));
         }
         else {
             const ctx = graphql_1.GqlExecutionContext.create(context);
             const resolverName = ctx.constructorRef.name;
             const info = ctx.getInfo();
-            return call$.pipe(operators_1.tap(() => common_1.Logger.log(`${info.parentType} "${info.fieldName}" ${Date.now() - now}ms`, resolverName)));
+            return call$
+                .handle()
+                .pipe(operators_1.tap(() => common_1.Logger.log(`${info.parentType} "${info.fieldName}" ${Date.now() - now}ms`, resolverName)));
         }
     }
 };

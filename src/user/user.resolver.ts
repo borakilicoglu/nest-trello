@@ -2,7 +2,7 @@ import {
   Resolver,
   Query,
   Args,
-  ResolveProperty,
+  ResolveField,
   Parent,
   Mutation,
   Context,
@@ -57,7 +57,7 @@ export class UserResolver {
     return await this.userService.register(user);
   }
 
-  @ResolveProperty()
+  @ResolveField()
   async comments(@Parent() user) {
     const { id } = user;
     return await this.commentService.showByUser(id);

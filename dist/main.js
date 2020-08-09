@@ -26,6 +26,7 @@ function bootstrap() {
             .build();
         const document = swagger_1.SwaggerModule.createDocument(app, options);
         swagger_1.SwaggerModule.setup('api', app, document);
+        app.enableShutdownHooks();
         app.enableCors({
             origin: [
                 'https://borakilicoglu.github.io',
@@ -33,7 +34,7 @@ function bootstrap() {
                 'http://localhost:3000',
                 'http://localhost:8081',
             ],
-            credentials: true
+            credentials: true,
         });
         yield app.listen(port);
         common_1.Logger.log(`Server running on http://localhost:${port}`, 'Bootstrap');

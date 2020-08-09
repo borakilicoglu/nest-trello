@@ -108,7 +108,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "register", null);
 __decorate([
-    graphql_1.ResolveProperty(),
+    graphql_1.ResolveField(),
     __param(0, graphql_1.Parent()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),

@@ -78,7 +78,9 @@ let BoardResolver = class BoardResolver {
 __decorate([
     graphql_1.Query(),
     common_1.UseGuards(new auth_guard_1.AuthGuard()),
-    __param(0, graphql_1.Args('page')), __param(1, graphql_1.Context('user')), __param(2, graphql_1.Args('newest')),
+    __param(0, graphql_1.Args('page')),
+    __param(1, graphql_1.Context('user')),
+    __param(2, graphql_1.Args('newest')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Object, Boolean]),
     __metadata("design:returntype", Promise)

@@ -10,16 +10,23 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("@nestjs/typeorm");
+const config_1 = require("@nestjs/config");
 const api_module_1 = require("./api.module");
 const app_controller_1 = require("./app.controller");
 const app_gateway_1 = require("./app.gateway");
 const date_scalar_1 = require("./shared/date.scalar");
+const db_config_factory_1 = require("./db-config.factory");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot(),
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                useClass: db_config_factory_1.DatabaseConfigFactory,
+            }),
             graphql_1.GraphQLModule.forRoot({
                 debug: true,
                 playground: true,
@@ -27,7 +34,7 @@ AppModule = __decorate([
                 typePaths: ['./**/*.graphql'],
                 context: ({ req }) => ({ headers: req.headers }),
             }),
-            api_module_1.ApiModule
+            api_module_1.ApiModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [date_scalar_1.DateScalar, app_gateway_1.AppGateway],

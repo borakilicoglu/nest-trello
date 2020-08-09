@@ -88,9 +88,8 @@ typings/
 
 # dotenv environment variables file
 .env
-src/.env
 # explicitly allow example
-!src/.env.example
+!.env.example
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

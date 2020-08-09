@@ -22,7 +22,7 @@ let HttpErrorFilter = class HttpErrorFilter {
             path: request.url,
             method: request.method,
             message: status !== common_1.HttpStatus.INTERNAL_SERVER_ERROR
-                ? exception.message.error || exception.message || null
+                ? exception.message || null
                 : 'Internal server error',
         };
         if (status === common_1.HttpStatus.INTERNAL_SERVER_ERROR) {
