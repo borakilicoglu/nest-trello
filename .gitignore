@@ -88,6 +88,8 @@ typings/
 
 # dotenv environment variables file
 .env
+# explicitly allow example
+!.env.example
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -115,3 +117,6 @@ typings/
 
 # End of https://www.gitignore.io/api/node,macos,visualstudiocode
 .notes
+
+# output/dist
+dist
