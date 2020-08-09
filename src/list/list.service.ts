@@ -1,7 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 import { ListEntity } from './list.entity';
 import { UserEntity } from '../user/user.entity';
 import { BoardEntity } from '../board/board.entity';

@@ -1,7 +1,6 @@
 import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 import { UserEntity } from '../user/user.entity';
 import { BoardEntity } from './board.entity';
 import { BoardDTO, BoardRO } from './board.dto';

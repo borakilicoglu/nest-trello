@@ -10,19 +10,20 @@
 
 Clone the repository
 
-    git clone https://github.com/borakilicoglu/nest-trello.git
+- `git clone https://github.com/borakilicoglu/nest-trello.git`
 
 Switch to the repo folder
 
-    cd nest-trello
+- `cd nest-trello`
 
 Install dependencies
 
-    npm install
+- `npm install` or `yarn` if using Yarn
 
-Copy config file and set JWT secret key
+Copy sample .env file and set JWT secret key
 
-    cp src/.env.example src/.env
+- `npm run init:env` or `yarn init:env` will copy `src/.env.example` to `src/.env`
+- Manually set the SECRET variable, as well as the database config
 
 ---
 
@@ -38,16 +39,16 @@ On application start, tables for all entities will be created.
 
 ## NPM scripts
 
-- `npm start` - Start application
-- `npm run start:dev` - Start application in watch mode
-- `npm run test` - run Jest test runner
-- `npm run start:prod` - Build application
+- `npm start` / `yarn start` - Start application
+- `npm run start:dev` / `yarn start:dev` - Start application in watch mode
+- `npm run test` / `yarn test` - run Jest test runner
+- `npm run start:prod` / `yarn start:prod` - Build application in production mode
 
 ---
 
 ## Start application
 
-- `npm start`
+- `npm start` / `yarn start`
 - Test api with `http://localhost:3000/api/boards` in your favourite browser
 
 ---
