@@ -1,12 +1,6 @@
 # nest-trello
 
-:pizza:Trello api with NestJS.
-
----
-
 ![image](https://nestjs.com/img/nest-og.png)
-
-## Getting started
 
 ## Installation
 
