@@ -22,7 +22,7 @@ Install dependencies
 
 Copy sample .env file and set JWT secret key
 
-- `npm run init:env` or `yarn init:env` will copy `src/.env.example` to `src/.env`
+- `npm run init:env` or `yarn init:env` will copy `.env.example` to `.env`
 - Manually set the SECRET variable, as well as the database config
 
 ---
